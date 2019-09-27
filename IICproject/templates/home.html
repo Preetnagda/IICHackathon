@@ -2,24 +2,26 @@
 {% block base %}
 <div class="container">
   {% if not updated%}
-	<fieldset>
+
    <form action="/updateAttendance" method="POST">
+     	<fieldset>
      {% csrf_token %}
    <legend>Attendence</legend>
     {% for student in students %}
       <div class="row">
        <div class="col-md-6">
         {{student.name}}
-       </div>
+       </div><br>
         <div class="col-md-6">
          <input type="radio" name="Attendence{{student.id}}" value="Present" checked>Present
          <input type="radio" name="Attendence{{student.id}}" value="Absent">Absent
-        </div>
+        </div><br>
       </div>
      {% endfor %}
 		 <input type="submit" value="submit">
+      </fieldset>
 	 </form>
- </fieldset>
+
  {% else %}
   <p>Updated</p>
  {% endif %}
