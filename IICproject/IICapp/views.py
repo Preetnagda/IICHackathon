@@ -13,13 +13,16 @@ def login(request):
         # print(request["logid"])
         username = request.POST["logid"]
         password = request.POST["psw"]
-        loggedincontext = {
-            "students" : models.Student.objects.raw('SELECT * from IICapp_student')
-        }
+
         for data in models.Teacher.objects.raw('SELECT * from IICapp_teacher'):
             if(data.username==username):
                 if(data.password==password):
                     request.session["username"] = username;
+                    teacherclass = str(models.Teacher.objects.filter(username = request.session["username"])[0].teacher_class)
+                    teacherstd = str(models.Teacher.objects.filter(username = request.session["username"])[0].std)
+                    loggedincontext = {
+                        "students" : models.Student.objects.raw('SELECT * from IICapp_student where std = '+teacherstd + ' and stud_class = '+teacherclass)
+                    }
                     return render(request,"home.html",loggedincontext)
 
     context = {
@@ -28,8 +31,10 @@ def login(request):
     return render(request,"login.html",context)
 
 def updateAttendance(request):
-    students =  models.Student.objects.raw('SELECT * from IICapp_student')
-    value = ""
+    teacherclass = str(models.Teacher.objects.filter(username = request.session["username"])[0].teacher_class)
+    teacherstd = str(models.Teacher.objects.filter(username = request.session["username"])[0].std)
+    students =  models.Student.objects.raw('SELECT * from IICapp_student where std = '+teacherstd + ' and stud_class = '+teacherclass)
+    value = teacherclass
     name = "name"
     if(request.POST):
         for student in students:
@@ -44,6 +49,8 @@ def updateAttendance(request):
             a = models.Attendance(student=student,teacher = teacher[0] ,attendace = attended,date=x)
             a.save()
     context = {
-    "value" : value,
+        "value" : value,
+        "teacherclass" : teacherclass,
+        "teacherstd" : teacherstd,
     }
     return render(request,"newhtml.html",context)

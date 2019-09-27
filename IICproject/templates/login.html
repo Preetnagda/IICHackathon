@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head><title>First try</title></head>
-<style>
-*{
-	margin: 0;
-	padding: 0;
-	font-family: "Open Sans", sans-serif;
-	text-decoration: none;
-	list-style: none;
-  }
+{% extends "base.html" %}
+{% block base %}
 
- </style>
-<body>
-	<fieldset>
+<fieldset>
 	 <legend>Login</legend>
    <form action="" method="post">
 		 {{name}}
@@ -24,5 +13,5 @@
      <input type="submit" name="submit">
 	 </form>
  </fieldset>
-</body>
-</html>
+
+ {% endblock %}

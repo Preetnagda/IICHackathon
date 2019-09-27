@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head><title>First try</title></head>
-<style>
-*{
-	margin: 0;
-	padding: 0;
-	font-family: "Open Sans", sans-serif;
-	text-decoration: none;
-	list-style: none;
-  }
- </style>
-<body>
+{% extends "base.html" %}
+{% block base %}
 <div class="container">
 	<fieldset>
    <form action="/updateAttendance" method="POST">
@@ -31,5 +20,4 @@
 	 </form>
  </fieldset>
 </div>
-</body>
-</html>
+{% endblock %}
