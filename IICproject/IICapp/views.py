@@ -35,12 +35,13 @@ def updateAttendance(request):
         for student in students:
             status = request.POST["Attendence"+str(student.id)]
             attended = True
+            # teacherid =  str(models.Teacher.objects.raw('SELECT id from IICapp_teacher where username ='+request.session["username"]))
+            teacher = models.Teacher.objects.filter(username = request.session["username"])
             if status == "Present":
                 attended = True
             else:
                 attended = False
-
-            a = models.Attendance(student=student.id,teacher = models.Teacher.objects.raw('SELECT id from IICapp_teacher where username ='+request.session["username"]),attendace = attended,date=x)
+            a = models.Attendance(student=student,teacher = teacher[0] ,attendace = attended,date=x)
             a.save()
     context = {
     "value" : value,
