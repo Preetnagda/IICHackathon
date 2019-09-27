@@ -1,15 +1,16 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from IICapp import models
+from IICapp import models,send
+from IICapp.send import sendNotificationdef
 import os
 import datetime
 x= datetime.date.today()
-print(x)
+# print(x)
 
 # Create your views here.
 
 def login(request):
-    name = ""
+    request.session.flush()
     if (request.POST):
         # print(request["logid"])
         username = request.POST["logid"]
@@ -21,11 +22,7 @@ def login(request):
                     request.session["username"] = username;
                     return redirect(loggedin)
 
-
-    context = {
-    "name":name
-    }
-    return render(request,"login.html",context)
+    return render(request,"login.html")
 
 def loggedin(request):
 
@@ -77,4 +74,12 @@ def updateAttendance(request):
         "teacherclass" : teacherclass,
         "teacherstd" : teacherstd,
     }
+    return redirect(loggedin)
+
+def sendNotification(request):
+    # teacher = models.Teacher.objects.filter(username = request.session["username"])[0].teacher_class
+    teacher = models.Teacher.objects.filter(username = request.session["username"])[0]
+    teacherid = teacher.id
+    # newsend = new send
+    sendNotificationdef(teacherid)
     return redirect(loggedin)

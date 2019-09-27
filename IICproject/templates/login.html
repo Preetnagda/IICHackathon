@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 {% block base %}
 
-<fieldset>
-	 <legend>Login</legend>
-   <form action="" method="post">
-		 {{name}}
-		 {% csrf_token %}
-		 <label for="logid" style="font-size:30px; align:center;">Login ID </label><br>
-		 <input type="text" placeholder="Enter Username" style="margin-left:20px; width:30%; height:30px;" name="logid"><br>
-		 <label for="psw" style="font-size:30px;">Password</label><br>
-		 <input type="pass" placeholder="Enter Password" style="margin-left:20px; width:30%; height:30px;" name="psw"><br><br><br>
-     <input type="submit" name="submit">
-	 </form>
- </fieldset>
+	 <div class="container" style="margin:auto;text-align:center;margin-top:5rem">
+     <form class="form-group" action="" method="post">
+      {% csrf_token %}
+      <label for="logid" style="font-size:30px; align:center;">Login ID </label><br>
+      <input type="text" class="form-" placeholder="Enter Username" style="margin-left:20px; width:30%; height:30px;" name="logid"><br>
+      <label for="psw" style="font-size:30px;">Password</label><br>
+      <input type="pass" placeholder="Enter Password" style="margin-left:20px; width:30%; height:30px;" name="psw"><br><br><br>
+       <input class="btn btn-primary" type="submit" name="submit">
+    </form>
+   </div>
+
 
  {% endblock %}

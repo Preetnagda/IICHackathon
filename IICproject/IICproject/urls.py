@@ -22,4 +22,5 @@ urlpatterns = [
     path('',views.login,name="login"),
     path('home',views.loggedin,name="loggedin"),
     path('updateAttendance',views.updateAttendance,name="updateAttendance"),
+    path('sendNotification',views.sendNotification,name="sendNotification"),
 ]
