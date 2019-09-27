@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block base %}
+<div class="container">
+
+   <form action="/updateAttendance" method="POST">
+		 <fieldset>
+     {% csrf_token %}
+   <legend>Attendence</legend>
+    {% for student in students %}
+      <div class="row">
+       <div class="col-md-6">
+        {{student.name}}
+       </div><br>
+        <div class="col-md-6">
+         <input type="radio" name="Attendence{{student.id}}" value="Present" checked>Present
+         <input type="radio" name="Attendence{{student.id}}" value="Absent">Absent
+        </div><br>
+      </div>
+     {% endfor %}
+		 <input type="submit" value="submit">
+		 </fieldset>
+	 </form>
+
+</div>
+{% endblock %}
