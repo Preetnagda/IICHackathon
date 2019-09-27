@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block base %}
 <div class="container">
+  {% if not updated%}
 	<fieldset>
    <form action="/updateAttendance" method="POST">
      {% csrf_token %}
@@ -19,5 +20,8 @@
 		 <input type="submit" value="submit">
 	 </form>
  </fieldset>
+ {% else %}
+  <p>Updated</p>
+ {% endif %}
 </div>
 {% endblock %}

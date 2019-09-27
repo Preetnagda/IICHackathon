@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from IICapp import models
 import os
 import datetime
-x= datetime.datetime.now()
+x= datetime.date.today()
+print(x)
 
 # Create your views here.
 
@@ -18,17 +19,38 @@ def login(request):
             if(data.username==username):
                 if(data.password==password):
                     request.session["username"] = username;
-                    teacherclass = str(models.Teacher.objects.filter(username = request.session["username"])[0].teacher_class)
-                    teacherstd = str(models.Teacher.objects.filter(username = request.session["username"])[0].std)
-                    loggedincontext = {
-                        "students" : models.Student.objects.raw('SELECT * from IICapp_student where std = '+teacherstd + ' and stud_class = '+teacherclass)
-                    }
-                    return render(request,"home.html",loggedincontext)
+                    return redirect(loggedin)
+
 
     context = {
     "name":name
     }
     return render(request,"login.html",context)
+
+def loggedin(request):
+
+    if(request.session["username"]):
+        teacher = models.Teacher.objects.filter(username = request.session["username"])
+        attendedstatus = models.AttendanceStatus.objects.filter(teacher = teacher[0])
+        updated = False
+        for i in range(len(attendedstatus)):
+            print("get attendacne")
+            if(attendedstatus[i].date == x):
+                updated = True
+                loggedincontext = {
+                    "updated" : True
+                }
+                return render(request,"home.html",loggedincontext)
+        teacherclass = str(teacher[0].teacher_class)
+        teacherstd = str(teacher[0].std)
+        loggedincontext = {
+            "students" : models.Student.objects.raw('SELECT * from IICapp_student where std = '+teacherstd + ' and stud_class = '+teacherclass),
+            "updated" : False,
+        }
+        return render(request,"home.html",loggedincontext)
+
+    else:
+        return redirect(login)
 
 def updateAttendance(request):
     teacherclass = str(models.Teacher.objects.filter(username = request.session["username"])[0].teacher_class)
@@ -48,9 +70,11 @@ def updateAttendance(request):
                 attended = False
             a = models.Attendance(student=student,teacher = teacher[0] ,attendace = attended,date=x)
             a.save()
+        astatus = models.AttendanceStatus(teacher = teacher[0],date=x)
+        astatus.save()
     context = {
         "value" : value,
         "teacherclass" : teacherclass,
         "teacherstd" : teacherstd,
     }
-    return render(request,"newhtml.html",context)
+    return redirect(loggedin)

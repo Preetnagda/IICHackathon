@@ -19,6 +19,7 @@ from IICapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('teacherlogin',views.login,name="login"),
-    path('updateAttendance',views.updateAttendance,name="updateAttendance")
+    path('',views.login,name="login"),
+    path('home',views.loggedin,name="loggedin"),
+    path('updateAttendance',views.updateAttendance,name="updateAttendance"),
 ]

@@ -21,3 +21,7 @@ class Attendance(models.Model):
      teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
      attendace = models.BooleanField()
      date = models.DateField()
+
+class AttendanceStatus(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    date = models.DateField()
