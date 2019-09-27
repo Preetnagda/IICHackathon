@@ -13,7 +13,8 @@
 <body>
 <div class="container">
 	<fieldset>
-   <form>
+   <form action="/updateAttendance" method="POST">
+     {% csrf_token %}
    <legend>Attendence</legend>
     {% for student in students %}
       <div class="row">
@@ -21,8 +22,8 @@
         {{student.name}}
        </div>
         <div class="col-md-6">
-         <input type="radio" name="Attendence" value="Present" checked>Present
-         <input type="radio" name="Attendence" value="Absent">Absent
+         <input type="radio" name="Attendence{{student.id}}" value="Present" checked>Present
+         <input type="radio" name="Attendence{{student.id}}" value="Absent">Absent
         </div>
       </div>
      {% endfor %}
