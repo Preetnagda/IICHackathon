@@ -10,6 +10,7 @@ x= datetime.date.today()
 # Create your views here.
 
 def login(request):
+
     request.session.flush()
     if (request.POST):
         # print(request["logid"])

@@ -2,6 +2,12 @@
 {% block base %}
 <div class="container" style="max-width:80%;">
   <div class="row">
+    <form class="" action="/" method="GET">
+      {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
+  </div>
+  <div class="row">
 
   {% if not updated%}
 
@@ -28,7 +34,7 @@
   <p>Today's Attendance has been Updated successfully</p>
 
 
- {% endif %}
+
  </div>
  <div class="row" style="margin-top:30px;">
    <p padding="5px">Notify Parents About Students attendace</p>
@@ -40,6 +46,7 @@
      <input class="" type="submit" value="Notify" >
    </form>
  </div>
+ {% endif %}
 
 </div>
 {% endblock %}

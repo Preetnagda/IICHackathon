@@ -11,6 +11,7 @@ from datetime import date
 
 import sqlite3
 
+date1 = date.today()
 
 
 def sent_notification(name,ph_number,mail,att_val):
@@ -31,14 +32,16 @@ def sent_notification(name,ph_number,mail,att_val):
         s.login("hulk64604@gmail.com","avengers@123" )
         s.sendmail("hulk64604@gmail.com", mail, message)
         s.quit()
-
-    message="Your ward "+name+" registered on phone number "+ph_number+" was"
-    if(att_val=="0"):
+    print(att_val)
+    message="Your ward "+name+" was "
+    if(att_val==True):
         message =message+" present"
     else:
         message =message+" absent"
+
+    message = message + " on " + str(date1)
     send_email(mail,message)
-    # send_sms(message)
+    send_sms(message)
 
 def sendNotificationdef(teacher_id):
     conn = sqlite3.connect('db.sqlite3')
