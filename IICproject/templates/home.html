@@ -14,6 +14,7 @@
    <form action="/updateAttendance" method="POST" style="width:100%">
      {% csrf_token %}
    <legend>Attendence</legend>
+   <p>Date : {{date}}</p>
     {% for student in students %}
       <div class="row">
        <div class="col-md-4">
@@ -31,9 +32,7 @@
 	 </form>
 
  {% else %}
-  <p>Today's Attendance has been Updated successfully</p>
-
-
+  <p>Today's Attendance i.e {{date}} has been Updated successfully</p>
 
  </div>
  <div class="row" style="margin-top:30px;">

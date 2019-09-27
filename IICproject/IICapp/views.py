@@ -36,7 +36,8 @@ def loggedin(request):
             if(attendedstatus[i].date == x):
                 updated = True
                 loggedincontext = {
-                    "updated" : True
+                    "updated" : True,
+                    "date":x,
                 }
                 return render(request,"home.html",loggedincontext)
         teacherclass = str(teacher[0].teacher_class)
@@ -44,6 +45,7 @@ def loggedin(request):
         loggedincontext = {
             "students" : models.Student.objects.raw('SELECT * from IICapp_student where std = '+teacherstd + ' and stud_class = '+teacherclass),
             "updated" : False,
+            "date":x,
         }
         return render(request,"home.html",loggedincontext)
 
